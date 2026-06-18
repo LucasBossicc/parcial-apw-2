@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>procedimiento</title>
+    <link rel="stylesheet" href="/styles/styles.css">
+</head>
+
+<body>
+    <nav>
+        <a href="/items">Items</a> |
+        <a href="/procedimiento">Procedimiento</a> |
+        <a href="/cerrar-sesion">Cerrar sesión</a>
+    </nav>
+
+    <div class="container">
+
+        <h1>Procedimiento</h1>
+
+        <p>
+            Este procedimiento calcula la tasación total del plantel
+            sumando el valor de mercado de todos los jugadores.
+        </p>
+
+        <button onclick="ejecutar()">Ejecutar procedimiento</button>
+
+        <div id="resultado"></div>
+
+    </div>
+
+    <script>
+        function ejecutar() {
+            fetch('/api/v1/acciones/tasacion-plantel')
+                .then(res => res.json())
+                .then(data => {
+                    document.getElementById("resultado").innerHTML = `
+                        <div class="card">
+                            <p><b>Cantidad:</b> ${data.resultado.cantidadIntegrantes}</p>
+                            <p><b>Total:</b> $${data.resultado.valorTotalPlantel}</p>
+                            <p><b>Promedio:</b> $${data.resultado.promedioValor}</p>
+                        </div>
+                    `;
+                });
+        }
+    </script>
+</body>
+
+</html>

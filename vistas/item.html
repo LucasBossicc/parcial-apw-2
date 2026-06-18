@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>item</title>
+    <link rel="stylesheet" href="/styles/styles.css">
+</head>
+
+<body>
+    <h1>Detalle del Jugador</h1>
+
+    <nav>
+        <a href="/items">Items</a> |
+        <a href="/procedimiento">Procedimiento</a> |
+        <a href="/cerrar-sesion">Cerrar sesión</a>
+    </nav>
+    <div class="container">
+        <!-- contenido acá -->
+    </div>
+
+    <hr>
+
+    <div id="detalle"></div>
+
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        const id = params.get("id");
+
+        fetch(`/api/v1/jugadores/${id}`)
+            .then(res => res.json())
+            .then(data => {
+                const j = data.data;
+
+                document.getElementById("detalle").innerHTML = `
+                    <p><b>Nombre:</b> ${j.nombre}</p>
+                    <p><b>Posición:</b> ${j.posicion}</p>
+                    <p><b>Edad:</b> ${j.edad}</p>
+                    <p><b>Valor mercado:</b> $${j.valorMercado}</p>
+                `;
+            });
+    </script>
+
+</body>
+
+</html>

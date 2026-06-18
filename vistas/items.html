@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>items</title>
+    <link rel="stylesheet" href="/styles/styles.css">
+</head>
+
+<body>
+    <nav>
+        <a href="/items">Items</a> |
+        <a href="/procedimiento">Procedimiento</a> |
+        <a href="/cerrar-sesion">Cerrar sesión</a>
+    </nav>
+
+    <div class="container">
+
+        <h1>Lista de Jugadores</h1>
+
+        <div id="lista"></div>
+
+    </div>
+
+    <script>
+        fetch('/api/v1/jugadores')
+            .then(res => res.json())
+            .then(data => {
+                const contenedor = document.getElementById('lista');
+
+                data.data.forEach(j => {
+                    contenedor.innerHTML += `
+                        <div class="card">
+                            <p><b>${j.nombre}</b></p>
+                            <p>${j.posicion}</p>
+                            <a href="/item?id=${j.id}">Ver detalle</a>
+                        </div>
+                    `;
+                });
+            });
+    </script>
+
+</body>
+
+</html>
